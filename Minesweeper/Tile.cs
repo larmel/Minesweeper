@@ -23,30 +23,16 @@ namespace Minesweeper
             return !Mine;
         }
 
-        private bool mine;
         public bool Mine
         {
-            get
-            {
-                return mine;
-            }
-            set
-            {
-                mine = value;
-            }
+            get;
+            set;
         }
 
-        private TileStatus status;
         public TileStatus Status
         {
-            get
-            {
-                return status;
-            }
-            set
-            {
-                status = value;
-            }
+            get;
+            set;
         }
     }
 }
