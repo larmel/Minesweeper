@@ -11,27 +11,6 @@ namespace MinesweeperTests
     [TestClass]
     public class BoardTest
     {
-        private Board threeByThreeClean;
-        private Board fourByFiveWithMines;
-        /*
-         * [x] [x] [x] [ ] [x]
-         * [x] [ ] [x] [x] [ ]
-         * [x] [x] [ ] [ ] [ ]
-         * [ ] [ ] [ ] [ ] [ ]
-         */
-        
-        [TestInitialize]
-        public void Initialize()
-        {
-            threeByThreeClean = new Board(3, 3);
-            fourByFiveWithMines = new Board(4, 5);
-            const int numMines = 9;
-            int[] rMine = new int[numMines] { 0, 0, 0, 0, 1, 1, 1, 2, 2 };
-            int[] cMine = new int[numMines] { 0, 1, 2, 4, 0, 2, 3, 0, 1 };
-            for (int i = 0; i < numMines; ++i) 
-                fourByFiveWithMines.Grid[rMine[i], cMine[i]].Mine = true;
-        }
-
         [TestMethod]
         public void BoardHasSpecifiedProperties()
         {
