@@ -71,5 +71,19 @@ namespace MinesweeperTests
 
             Assert.IsTrue(open);
         }
+
+        [TestMethod]
+        public void Opening_a_mine_should_return_false()
+        {
+            Board board = Board.FromString(
+                "[ ] [ ] [ ]" +
+                "[ ] [x] [x]" +
+                "[x] [ ] [ ]"
+            );
+
+            bool open = board.Open(1, 1);
+
+            Assert.IsFalse(open);
+        }
     }
 }

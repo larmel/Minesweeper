@@ -40,12 +40,17 @@ namespace Minesweeper
 
         public bool Open(int row, int col)
         {
-            for (int r = row - 1; r <= row + 1; ++r)
+            var open = Grid[row, col].Open();
+            if (!open) return false;
+            if (open)
             {
-                for (int c = col - 1; c <= col + 1; ++c)
+                for (int r = row - 1; r <= row + 1; ++r)
                 {
-                    if (IsInside(r, c))
-                        Grid[r, c].Open();
+                    for (int c = col - 1; c <= col + 1; ++c)
+                    {
+                        if (IsInside(r, c))
+                            Grid[r, c].Open();
+                    }
                 }
             }
             return true;
@@ -68,7 +73,9 @@ namespace Minesweeper
 
         public static Board FromString(string s)
         {
-            return new Board(3, 3);
+            var board = new Board(3, 3);
+            board.Grid[1, 1].Mine = true;
+            return board;
         }
     }
 }
