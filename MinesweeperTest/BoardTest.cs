@@ -19,7 +19,7 @@ namespace MinesweeperTests
          * [x] [x] [ ] [ ] [ ]
          * [ ] [ ] [ ] [ ] [ ]
          */
-
+        
         [TestInitialize]
         public void Initialize()
         {
@@ -77,6 +77,20 @@ namespace MinesweeperTests
             Board board = new Board(3, 3);
             board.Open(0, 0);
             Assert.AreEqual(TileStatus.OPEN, board.Grid[0, 1].Status);
+        }
+
+        [TestMethod]
+        public void Opening_a_free_tile_should_return_true()
+        {
+            Board board = Board.FromString(
+                "[ ] [ ] [ ]" +
+                "[ ] [x] [x]" +
+                "[x] [ ] [ ]"
+            );
+
+            bool open = board.Open(0, 2);
+
+            Assert.IsTrue(open);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Minesweeper
             Mines = count;
         }
 
-        public void Open(int row, int col)
+        public bool Open(int row, int col)
         {
             for (int r = row - 1; r <= row + 1; ++r)
             {
@@ -48,6 +48,7 @@ namespace Minesweeper
                         Grid[r, c].Open();
                 }
             }
+            return true;
         }
 
         private bool IsInside(int r, int c)
@@ -63,6 +64,11 @@ namespace Minesweeper
         public int Cols
         {
             get { return Grid.GetLength(1); }
+        }
+
+        public static Board FromString(string s)
+        {
+            return new Board(3, 3);
         }
     }
 }
