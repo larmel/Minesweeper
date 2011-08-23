@@ -71,10 +71,27 @@ namespace Minesweeper
             get { return Grid.GetLength(1); }
         }
 
-        public static Board FromString(string s)
+        /**
+         * Creates a board from string input like this
+         * [ ] [x] [ ]
+         * [x] [ ] [ ]
+         * [ ] [x] [x]
+         */
+        public static Board FromString(params string[] s)
         {
-            var board = new Board(3, 3);
-            board.Grid[1, 1].Mine = true;
+            var rows = s.Length;
+            var cols = s[0].Count((c) => c == '[');
+
+            var board = new Board(rows, cols);
+            for (var r = 0; r < rows; ++r)
+            {
+                for (var c = 0; c < cols; ++c)
+                {
+                    var minechar = s[r].ElementAt(1 + "] [ ".Length * c);
+                    if (minechar == 'x')
+                        board.Grid[r, c].Mine = true;
+                }
+            }
             return board;
         }
     }

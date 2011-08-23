@@ -62,12 +62,10 @@ namespace MinesweeperTests
         public void Opening_a_free_tile_should_return_true()
         {
             Board board = Board.FromString(
-                "[ ] [ ] [ ]" +
-                "[ ] [x] [x]" +
-                "[x] [ ] [ ]"
+                "[ ]"
             );
 
-            bool open = board.Open(0, 2);
+            bool open = board.Open(0, 0);
 
             Assert.IsTrue(open);
         }
@@ -76,12 +74,10 @@ namespace MinesweeperTests
         public void Opening_a_mine_should_return_false()
         {
             Board board = Board.FromString(
-                "[ ] [ ] [ ]" +
-                "[ ] [x] [x]" +
-                "[x] [ ] [ ]"
+                "[x]"
             );
 
-            bool open = board.Open(1, 1);
+            bool open = board.Open(0, 0);
 
             Assert.IsFalse(open);
         }
