@@ -43,11 +43,20 @@ namespace MinesweeperTests
         }
 
         [TestMethod]
-        public void Adjacent_tiles_are_opened()
+        public void All_adjacent_tiles_are_opened_when_field_contains_no_nearby_mines()
         {
-            Board board = new Board(3, 3);
+            var board = Board.FromString(
+                "[ ] [ ] [ ]",
+                "[ ] [ ] [ ]",
+                "[ ] [ ] [ ]"
+            );
+
             board.Open(1, 1);
-            Assert.AreEqual(TileStatus.OPEN, board.Grid[0, 0].Status);
+
+            foreach (var t in board.Grid)
+            {
+                Assert.AreEqual(TileStatus.OPEN, t.Status);
+            }
         }
 
         [TestMethod]
