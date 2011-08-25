@@ -14,32 +14,48 @@ namespace MinesweeperTests
         [TestMethod]
         public void Board_has_specified_properties()
         {
-            Board b = new Board(10, 20);
+            var b = new Board(10, 20, 30);
             Assert.AreEqual(b.Rows, 10);
             Assert.AreEqual(b.Cols, 20);
-            Assert.AreEqual(b.Mines, 0);
-
-            b.SetNumberOfMines(10);
-            Assert.AreEqual(b.Mines, 10);
+            Assert.AreEqual(b.Mines, 30);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Only_valid_sizes_are_accepted()
         {
-            Board b = new Board(0, 1);
+            new Board(0, 1, 0);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Only_valid_number_of_mines_are_accepted()
         {
-            Board b = new Board(10, 10);
-            b.SetNumberOfMines(10);
-            Assert.AreEqual(10, b.Mines);
+            new Board(10, 10, 10*10 + 1);
+        }
 
-            b.SetNumberOfMines(101);
-            Assert.Fail();
+        [TestMethod]
+        public void Opening_a_free_tile_should_return_true()
+        {
+            var board = Board.FromString(
+                "[ ]"
+            );
+
+            bool open = board.Open(0, 0);
+
+            Assert.IsTrue(open);
+        }
+
+        [TestMethod]
+        public void Opening_a_mine_should_return_false()
+        {
+            var board = Board.FromString(
+                "[x]"
+            );
+
+            bool open = board.Open(0, 0);
+
+            Assert.IsFalse(open);
         }
 
         [TestMethod]
@@ -60,35 +76,20 @@ namespace MinesweeperTests
         }
 
         [TestMethod]
-        public void Border_cases_are_handled()
+        public void All_adjacent_tiles_are_opened_when_opening_empty_tile_in_a_corner()
         {
-            Board board = new Board(3, 3);
+            var board = Board.FromString(
+                "[ ] [ ]",
+                "[ ] [ ]"
+            );
+
             board.Open(0, 0);
-            Assert.AreEqual(TileStatus.OPEN, board.Grid[0, 1].Status);
+
+            foreach (var t in board.Grid)
+            {
+                Assert.AreEqual(TileStatus.OPEN, t.Status);
+            }
         }
 
-        [TestMethod]
-        public void Opening_a_free_tile_should_return_true()
-        {
-            Board board = Board.FromString(
-                "[ ]"
-            );
-
-            bool open = board.Open(0, 0);
-
-            Assert.IsTrue(open);
-        }
-
-        [TestMethod]
-        public void Opening_a_mine_should_return_false()
-        {
-            Board board = Board.FromString(
-                "[x]"
-            );
-
-            bool open = board.Open(0, 0);
-
-            Assert.IsFalse(open);
-        }
     }
 }

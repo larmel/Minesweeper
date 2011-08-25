@@ -11,12 +11,14 @@ namespace Minesweeper
 
         public Tile[,] Grid { get; private set; }
 
-        public Board(int rows, int cols)
+        public Board(int rows, int cols, int mines)
         {
             if (rows < 1 || cols < 1)
                 throw new ArgumentException("Board size can not be less than 1x1");
+            if (mines > rows * cols)
+                throw new ArgumentException("Illegal number of mines");
             SetDimensions(rows, cols);
-            SetNumberOfMines(0);
+            SetNumberOfMines(mines);
         }
 
         private void SetDimensions(int rows, int cols)
@@ -31,10 +33,8 @@ namespace Minesweeper
             }
         }
 
-        public void SetNumberOfMines(int count)
+        private void SetNumberOfMines(int count)
         {
-            if (count > Rows * Cols)
-                throw new ArgumentException("Illegal number of mines");
             Mines = count;
         }
 
@@ -82,7 +82,7 @@ namespace Minesweeper
             var rows = s.Length;
             var cols = s[0].Count((c) => c == '[');
 
-            var board = new Board(rows, cols);
+            var board = new Board(rows, cols, 0);
             for (var r = 0; r < rows; ++r)
             {
                 for (var c = 0; c < cols; ++c)
