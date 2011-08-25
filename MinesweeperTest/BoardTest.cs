@@ -35,6 +35,21 @@ namespace MinesweeperTests
         }
 
         [TestMethod]
+        public void Number_of_mines_should_match_number_of_tiles_with_mines()
+        {
+            var board = new Board(3, 3, 5);
+            var minecount = 0;
+
+            foreach (var tile in board.Grid)
+            {
+                if (tile.Mine)
+                    minecount++;
+            }
+
+            Assert.AreEqual(minecount, board.Mines);
+        }
+
+        [TestMethod]
         public void Opening_a_free_tile_should_return_true()
         {
             var board = Board.FromString(

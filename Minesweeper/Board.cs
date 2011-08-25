@@ -36,6 +36,19 @@ namespace Minesweeper
         private void SetNumberOfMines(int count)
         {
             Mines = count;
+            var random = new Random();
+
+            var placed = 0;
+            while (placed < count)
+            {
+                var row = random.Next() % Rows;
+                var col = random.Next() % Cols;
+                if (!Grid[row, col].Mine)
+                {
+                    Grid[row, col].Mine = true;
+                    placed++;
+                }
+            }
         }
 
         public bool Open(int row, int col)
