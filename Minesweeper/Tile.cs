@@ -23,6 +23,14 @@ namespace Minesweeper
             return !Mine;
         }
 
+        public void SetFlag()
+        {
+            if (Status != TileStatus.OPEN)
+            {
+                Status = (Status != TileStatus.FLAGGED) ? TileStatus.FLAGGED : TileStatus.CLOSED;
+            }
+        }
+
         public bool Mine
         {
             get;
