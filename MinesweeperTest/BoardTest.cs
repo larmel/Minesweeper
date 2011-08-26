@@ -124,5 +124,24 @@ namespace MinesweeperTests
                 board.Print()
             );
         }
+
+        [TestMethod]
+        public void Should_mark_flagged_mine_with_capital_f()
+        {
+            var board = Board.FromString(
+                "[x] [ ] [ ]",
+                "[ ] [x] [x]",
+                "[ ] [x] [x]"
+            );
+
+            board.Flag(1, 1);
+
+            Assert.AreEqual(
+                "[ ] [ ] [ ]" + Environment.NewLine +
+                "[ ] [F] [ ]" + Environment.NewLine +
+                "[ ] [ ] [ ]" + Environment.NewLine,
+                board.Print()
+            );
+        }
     }
 }
