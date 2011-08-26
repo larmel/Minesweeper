@@ -129,17 +129,45 @@ namespace MinesweeperTests
         public void Should_mark_flagged_mine_with_capital_f()
         {
             var board = Board.FromString(
-                "[x] [ ] [ ]",
-                "[ ] [x] [x]",
-                "[ ] [x] [x]"
+                "[x]"
             );
 
-            board.Flag(1, 1);
+            board.Flag(0, 0);
 
             Assert.AreEqual(
-                "[ ] [ ] [ ]" + Environment.NewLine +
-                "[ ] [F] [ ]" + Environment.NewLine +
-                "[ ] [ ] [ ]" + Environment.NewLine,
+                "[F]" + Environment.NewLine,
+                board.Print()
+            );
+        }
+
+        [TestMethod]
+        public void Flagging_an_open_tile_should_do_nothing()
+        {
+            var board = Board.FromString(
+                "[x] [ ]"
+            );
+
+            board.Open(0, 1);
+            board.Flag(0, 1);
+
+            Assert.AreEqual(
+                "[ ]  1 " + Environment.NewLine,
+                board.Print()
+            );
+        }
+
+        [TestMethod]
+        public void Flagging_a_second_time_should_change_status_back_to_closed()
+        {
+            var board = Board.FromString(
+                "[ ]"
+            );
+
+            board.Flag(0, 0);
+            board.Flag(0, 0);
+
+            Assert.AreEqual(
+                "[ ]" + Environment.NewLine,
                 board.Print()
             );
         }

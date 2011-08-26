@@ -71,7 +71,8 @@ namespace Minesweeper
 
         public void Flag(int row, int col)
         {
-            Grid[row, col].Status = TileStatus.FLAGGED;
+            if (Grid[row, col].Status != TileStatus.OPEN)
+                Grid[row, col].Status = (Grid[row, col].Status == TileStatus.FLAGGED) ? TileStatus.CLOSED : TileStatus.FLAGGED;
         }
 
         private bool IsInside(int r, int c)
