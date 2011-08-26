@@ -117,10 +117,11 @@ namespace MinesweeperTests
 
             board.Open(2, 0);
             
-            Assert.AreEqual(
-                "[ ] [ ] [ ]" + Environment.NewLine +
-                "[ ] [ ] [ ]" + Environment.NewLine +
-                " 2  [ ] [ ]" + Environment.NewLine,
+            Assert.AreEqual(BoardOutput(
+                "[ ] [ ] [ ]",
+                "[ ] [ ] [ ]",
+                " 2  [ ] [ ]"
+                ),
                 board.Print()
             );
         }
@@ -134,8 +135,9 @@ namespace MinesweeperTests
 
             board.Flag(0, 0);
 
-            Assert.AreEqual(
-                "[F]" + Environment.NewLine,
+            Assert.AreEqual(BoardOutput(
+                "[F]"
+                ),
                 board.Print()
             );
         }
@@ -150,8 +152,9 @@ namespace MinesweeperTests
             board.Open(0, 1);
             board.Flag(0, 1);
 
-            Assert.AreEqual(
-                "[ ]  1 " + Environment.NewLine,
+            Assert.AreEqual(BoardOutput(
+                "[ ]  1 "
+                ),
                 board.Print()
             );
         }
@@ -166,10 +169,16 @@ namespace MinesweeperTests
             board.Flag(0, 0);
             board.Flag(0, 0);
 
-            Assert.AreEqual(
-                "[ ]" + Environment.NewLine,
+            Assert.AreEqual(BoardOutput(
+                "[ ]"
+                ),
                 board.Print()
             );
+        }
+
+        private static string BoardOutput(params string[] s)
+        {
+            return string.Join(Environment.NewLine, s) + Environment.NewLine;
         }
     }
 }
