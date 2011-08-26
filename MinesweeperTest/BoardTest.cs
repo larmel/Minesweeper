@@ -106,5 +106,23 @@ namespace MinesweeperTests
             }
         }
 
+        [TestMethod]
+        public void Should_show_number_of_mines_when_opening_a_tile_with_neighboring_mines()
+        {
+            var board = Board.FromString(
+                "[x] [ ] [ ]",
+                "[ ] [x] [x]",
+                "[ ] [x] [x]"
+            );
+
+            board.Open(2, 0);
+            
+            Assert.AreEqual(
+                "[ ] [ ] [ ]" + Environment.NewLine +
+                "[ ] [ ] [ ]" + Environment.NewLine +
+                " 2  [ ] [ ]" + Environment.NewLine,
+                board.Print()
+            );
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace Minesweeper
         {
             var open = Grid[row, col].Open();
             if (!open) return false;
-            if (open)
+            if (NumberOfSurroundingMines(row, col) == 0)
             {
                 for (int r = row - 1; r <= row + 1; ++r)
                 {
@@ -106,6 +106,47 @@ namespace Minesweeper
                 }
             }
             return board;
+        }
+
+        public string Print()
+        {
+            string board = "";
+            for (int row = 0; row < Rows; ++row)
+            {
+                for (int col = 0; col < Cols; ++col)
+                {
+                    switch (Grid[row, col].Status)
+                    {
+                        case TileStatus.CLOSED:
+                            board += "[ ]";
+                            break;
+                        case TileStatus.FLAGGED:
+                            board += "[F]";
+                            break;
+                        case TileStatus.OPEN:
+                            board += string.Format(" {0} ", NumberOfSurroundingMines(row, col));
+                            break;
+                    }
+                    if (col != Cols - 1)
+                        board += " ";
+                }
+                board += Environment.NewLine;
+            }
+            return board;
+        }
+
+        private int NumberOfSurroundingMines(int row, int col)
+        {
+            int count = 0;
+            for (int r = row - 1; r <= row + 1; ++r)
+            {
+                for (int c = col - 1; c <= col + 1; ++c)
+                {
+                    if (IsInside(r, c) && Grid[r, c].Mine)
+                        count++;
+                }
+            }
+            return count;
         }
     }
 }
